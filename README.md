@@ -2,15 +2,19 @@
 
 ## Integrantes
 
-- Nome Completo — RM: XXXXXX — Turma: XCCXX
+| Nome | RM |
+|------|----|
+| Davi Simoncelo | RM: 571738 |
+| João Pedro Sousa | RM: 573962 |
+| Matheus Evangelista Silva | RM: 568593 |
 
 ## O que o projeto faz
 
-Sistema de monitoramento do satelite EnviroSat-1 que simula telemetria de um satelite de observacao ambiental, detecta anomalias via thresholds em Python e analisa o estado da missao em linguagem natural usando IA generativa (Ollama Cloud). Cada alerta traduz a anomalia tecnica em impacto concreto para operadores, brigadas de incendio e analistas ambientais.
+Sistema de monitoramento do satélite EnviroSat-1 que simula telemetria de um satélite de observação ambiental, detecta anomalias via thresholds em Python e analisa o estado da missão em linguagem natural usando IA generativa (Ollama Cloud). Cada alerta traduz a anomalia técnica em impacto concreto para operadores, brigadas de incêndio e analistas ambientais.
 
 ## Persona atendida
 
-Operador do Centro de Controle Ambiental (INPE / orgao estadual): precisa de diagnostico rapido e acao clara diante de anomalias que podem indicar focos de incendio ou desmatamento.
+Operador do Centro de Controle Ambiental (INPE / órgão estadual): precisa de diagnóstico rápido e ação clara diante de anomalias que podem indicar focos de incêndio ou desmatamento.
 
 ## Tecnologias utilizadas
 
@@ -19,7 +23,7 @@ Operador do Centro de Controle Ambiental (INPE / orgao estadual): precisa de dia
 - rich 13.9.4
 - prompt-toolkit 3.0.52
 - pyfiglet 1.0.4
-- python-dotenv 1.2.2
+- python-dotenv 1.2.1
 
 ## Como executar
 
@@ -35,49 +39,47 @@ python main.py
 
 ## Comandos da CLI
 
-- /status  — snapshot da telemetria atual com alertas
-- /help    — lista os comandos
-- /about   — informacoes sobre a missao
-- /clear   — limpa o terminal
-- /exit    — encerra o sistema
-- qualquer texto — enviado a IA para analise contextualizada
+- `/status`  — snapshot da telemetria atual com alertas
+- `/help`    — lista os comandos disponíveis
+- `/about`   — informações sobre a missão
+- `/clear`   — limpa o terminal
+- `/exit`    — encerra o sistema
+- qualquer texto — enviado à IA para análise contextualizada
 
-## Demonstracao
+## Demonstração
 
-(adicionar prints reais em assets/ apos rodar o sistema)
 
 ![Banner inicial](assets/screenshot_banner.png)
-![Analise com alerta critico](assets/screenshot_analise.png)
+![Análise com alerta crítico](assets/screenshot_analise.png)
 
 ## System Prompt
 
-Disponivel em prompts/system_prompt.md. Instrui o modelo a sempre conectar diagnostico tecnico com impacto terrestre, usando formato estruturado com classificacao de severidade.
+Disponível em `prompts/system_prompt.md`. Instrui o modelo a sempre conectar diagnóstico técnico com impacto terrestre, usando formato estruturado com classificação de severidade.
 
-## Cenarios de teste
+## Cenários de teste
 
-1. Operacao normal — todos os parametros dentro do range
-2. Foco de incendio critico — temperatura acima de 70C + NDVI baixo
-3. Energia critica — abaixo de 20%, modo economia ativado pelo codigo Python
-4. Multiplos alertas — buffer cheio + energia baixa + temperatura elevada simultaneos
+1. Operação normal — todos os parâmetros dentro do range
+2. Foco de incêndio crítico — temperatura acima de 70°C + NDVI baixo
+3. Energia crítica — abaixo de 20%, modo economia ativado pelo código Python
+4. Múltiplos alertas — buffer cheio + energia baixa + temperatura elevada simultâneos
 
-## Proposta de valor / modelo de negocio
+## Proposta de valor / modelo de negócio
 
-**Problema terrestre:** O Brasil perde milhoes de hectares de floresta anualmente para desmatamento e incendios. O gargalo nao e a falta de satelites — e o tempo entre deteccao do dado bruto e a resposta em campo. Operadores precisam interpretar telemetria tecnica e transformar isso em acao rapida, sem depender de especialistas disponiveis 24h.
+**Problema terrestre:** O Brasil perde milhões de hectares de floresta anualmente para desmatamento e incêndios. O gargalo não é a falta de satélites, é o tempo entre detecção do dado bruto e a resposta em campo. Operadores precisam interpretar telemetria técnica e transformar isso em ação rápida, sem depender de especialistas disponíveis 24h.
 
-**Quem paga:** Modelo hibrido — setor publico (INPE, IBAMA, Secretarias Estaduais de Meio Ambiente) financia a infraestrutura de monitoramento; setor privado (seguradoras rurais, empresas com metas ESG, operadoras de credito de carbono) paga por relatorios de compliance e certificacao de areas monitoradas.
+**Quem paga:** Modelo híbrido — setor público (INPE, IBAMA, Secretarias Estaduais de Meio Ambiente) financia a infraestrutura de monitoramento; setor privado (seguradoras rurais, empresas com metas ESG, operadoras de crédito de carbono) paga por relatórios de compliance e certificação de áreas monitoradas.
 
-**Metrica de impacto:** EnviroSat-1 operando 100% saudavel por 1 ano cobre cerca de 2 milhoes de hectares de areas protegidas na Amazonia Legal, reduz o tempo medio de resposta de brigadas de 6h para 4h, e gera 12 relatorios mensais de conformidade ambiental para orgaos reguladores.
+**Métrica de impacto:** EnviroSat-1 operando 100% saudável por 1 ano cobre cerca de 2 milhões de hectares de áreas protegidas na Amazônia Legal, reduz o tempo médio de resposta de brigadas de 6h para 4h, e gera 12 relatórios mensais de conformidade ambiental para órgãos reguladores.
 
-**Modelo de negocio:** Dado-como-servico (DaaS). Orgaos ambientais assinam acesso a plataforma de alertas em tempo real. Analistas de compliance adquirem relatorios georeferenciados por area. Brigadas recebem notificacoes via API integrada ao sistema de despacho.
+**Modelo de negócio:** Dado-como-serviço (DaaS). Órgãos ambientais assinam acesso à plataforma de alertas em tempo real. Analistas de compliance adquirem relatórios georreferenciados por área. Brigadas recebem notificações via API integrada ao sistema de despacho.
 
-## Limitacoes conhecidas
+## Limitações conhecidas
 
-- Telemetria e simulada aleatoriamente, nao reflete dados reais de satelite
-- Sem persistencia de historico entre sessoes
+- Telemetria é simulada aleatoriamente, não reflete dados reais de satélite
+- Sem persistência de histórico entre sessões
 - Interface apenas via terminal
 
-## Video de demonstracao
+## Vídeo de demonstração
 
 https://www.youtube.com/watch?v=SEU_ID_AQUI
 
-Configurado como "Nao listado" no YouTube.
