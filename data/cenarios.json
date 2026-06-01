@@ -1,0 +1,42 @@
+[
+  {
+    "nome": "Operacao normal",
+    "dados": {
+      "sensor_termico": 32.5,
+      "sensor_optico_ndvi": 0.72,
+      "buffer_imagens_pct": 38.0,
+      "precisao_geo_metros": 22.0,
+      "energia_disponivel_pct": 81.0
+    }
+  },
+  {
+    "nome": "Foco de incendio critico",
+    "dados": {
+      "sensor_termico": 78.3,
+      "sensor_optico_ndvi": 0.11,
+      "buffer_imagens_pct": 55.0,
+      "precisao_geo_metros": 18.0,
+      "energia_disponivel_pct": 63.0
+    }
+  },
+  {
+    "nome": "Energia critica",
+    "dados": {
+      "sensor_termico": 28.0,
+      "sensor_optico_ndvi": 0.65,
+      "buffer_imagens_pct": 42.0,
+      "precisao_geo_metros": 30.0,
+      "energia_disponivel_pct": 12.0
+    }
+  },
+  {
+    "nome": "Multiplos alertas",
+    "dados": {
+      "sensor_termico": 65.0,
+      "sensor_optico_ndvi": 0.18,
+      "buffer_imagens_pct": 93.0,
+      "precisao_geo_metros": 45.0,
+      "energia_disponivel_pct": 17.0
+    }
+  }
+]
