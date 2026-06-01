@@ -80,5 +80,5 @@ Disponível em `prompts/system_prompt.md`. Instrui o modelo a sempre conectar di
 - Interface apenas via terminal
 
 ## Vídeo
-
+https://youtu.be/8F6csdti5gs
 
