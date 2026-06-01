@@ -79,7 +79,6 @@ Disponível em `prompts/system_prompt.md`. Instrui o modelo a sempre conectar di
 - Sem persistência de histórico entre sessões
 - Interface apenas via terminal
 
-## Vídeo de demonstração
+## Vídeo
 
-https://www.youtube.com/watch?v=SEU_ID_AQUI
 
