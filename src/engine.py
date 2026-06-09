@@ -33,11 +33,11 @@ def llm(prompt: str, system: str = None, max_tokens: int = 800, temperature: flo
 
 
 def load_system_prompt() -> str:
-    """Le o system prompt do arquivo prompts/system_prompt.md."""
-    path = Path("prompts/system_prompt.md")
+    """Lê o system prompt do arquivo prompts/system_prompt.md."""
+    path = Path(__file__).resolve().parent.parent / "prompts" / "system_prompt.md"
     if path.exists():
         return path.read_text(encoding="utf-8")
-    return "Voce e um assistente de missao espacial."
+    return "Você é um assistente de missão espacial."
 
 
 class MissionEngine:
@@ -46,49 +46,61 @@ class MissionEngine:
     def __init__(self):
         self.trilha = TRILHA
         self.system_prompt = load_system_prompt()
+        # Estado da telemetria — gerado UMA vez e reaproveitado por
+        # status_snapshot() e analyze(), garantindo que a IA analise
+        # exatamente a mesma leitura que aparece no /status.
+        self.dados = None
+        self.lista_alertas = []
+        self.resumo = ""
+        self.nova_leitura()
 
     def is_ready(self) -> bool:
         return True
 
+    def nova_leitura(self) -> dict:
+        """Faz uma nova leitura da telemetria e recalcula os alertas."""
+        self.dados = telemetria.coletar()
+        self.lista_alertas = alertas.avaliar(self.dados)
+        self.resumo = alertas.resumo_alertas(self.lista_alertas)
+        return self.dados
+
     def status_snapshot(self) -> str:
-        """Retorna snapshot textual do estado atual da telemetria com alertas."""
-        dados = telemetria.coletar()
-        lista_alertas = alertas.avaliar(dados)
-        resumo = alertas.resumo_alertas(lista_alertas)
+        """Faz uma nova leitura e retorna o snapshot textual com alertas."""
+        self.nova_leitura()
 
         linhas = [
-            f"EnviroSat-1 · {self.trilha.upper()} · {dados['timestamp']}",
+            f"EnviroSat-1 · {self.trilha.upper()} · {self.dados['timestamp']}",
             "",
             "Telemetria atual:",
-            f"  sensor_termico      : {dados['sensor_termico']}C",
-            f"  sensor_optico_ndvi  : {dados['sensor_optico_ndvi']}",
-            f"  buffer_imagens_pct  : {dados['buffer_imagens_pct']}%",
-            f"  precisao_geo        : {dados['precisao_geo_metros']}m de desvio",
-            f"  energia_disponivel  : {dados['energia_disponivel_pct']}%",
+            f"  sensor_termico      : {self.dados['sensor_termico']}C",
+            f"  sensor_optico_ndvi  : {self.dados['sensor_optico_ndvi']}",
+            f"  buffer_imagens_pct  : {self.dados['buffer_imagens_pct']}%",
+            f"  precisao_geo        : {self.dados['precisao_geo_metros']}m de desvio",
+            f"  energia_disponivel  : {self.dados['energia_disponivel_pct']}%",
             "",
             "Alertas:",
-            resumo,
+            self.resumo,
         ]
         return "\n".join(linhas)
 
     def analyze(self, pergunta_usuario: str) -> str:
         """
-        Coleta telemetria, avalia alertas e consulta a IA com o contexto completo.
+        Usa a leitura ATUAL da telemetria (NAO gera uma nova) e consulta a IA
+        com o contexto completo — assim a analise sempre bate com o ultimo /status.
         """
-        dados = telemetria.coletar()
-        lista_alertas = alertas.avaliar(dados)
-        resumo = alertas.resumo_alertas(lista_alertas)
+        if self.dados is None:
+            self.nova_leitura()
 
         contexto = f"""
-TELEMETRIA ATUAL DO ENVIROSAT-1 ({dados['timestamp']}):
-- sensor_termico: {dados['sensor_termico']}C
-- sensor_optico_ndvi: {dados['sensor_optico_ndvi']}
-- buffer_imagens_pct: {dados['buffer_imagens_pct']}%
-- precisao_geo_metros: {dados['precisao_geo_metros']}m de desvio
-- energia_disponivel_pct: {dados['energia_disponivel_pct']}%
+TELEMETRIA ATUAL DO ENVIROSAT-1 ({self.dados['timestamp']}):
+- sensor_termico: {self.dados['sensor_termico']}C
+- sensor_optico_ndvi: {self.dados['sensor_optico_ndvi']}
+- buffer_imagens_pct: {self.dados['buffer_imagens_pct']}%
+- precisao_geo_metros: {self.dados['precisao_geo_metros']}m de desvio
+- energia_disponivel_pct: {self.dados['energia_disponivel_pct']}%
 
 ALERTAS DETECTADOS PELO SISTEMA:
-{resumo}
+{self.resumo}
 
 PERGUNTA DO OPERADOR:
 {pergunta_usuario}
