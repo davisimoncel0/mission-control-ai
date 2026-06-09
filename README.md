@@ -2,13 +2,9 @@
 
 ## Integrantes
 
-| Nome | RM |
-|------|----|
-| Davi Simoncelo | RM: 571738 |
-| João Pedro Sousa | RM: 573962 |
-| Matheus Evangelista Silva | RM: 568593 |
-
-Turma: 1CCPK
+- Davi Simoncelo — RM: 571738 — Turma: 1CCPK
+- João Pedro Sousa — RM: 573962 — Turma: 1CCPK
+- Matheus Evangelista Silva — RM: 568593 — Turma: 1CCPK
 
 ## O que o projeto faz
 
@@ -85,6 +81,7 @@ Disponível em `prompts/system_prompt.md`. Instrui o modelo a sempre conectar di
 - Sem persistência de histórico entre sessões
 - Interface apenas via terminal
 
-## Vídeo
-[Assistir demonstração no YouTube](https://youtu.be/8F6csdti5gs)
+## 🎬 Vídeo de demonstração
+🎬 [Assistir demonstração no YouTube](https://youtu.be/8F6csdti5gs)
+> Configurado como "Não listado" no YouTube.
 
