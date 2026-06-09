@@ -8,6 +8,8 @@
 | João Pedro Sousa | RM: 573962 |
 | Matheus Evangelista Silva | RM: 568593 |
 
+Turma: 1CCPK
+
 ## O que o projeto faz
 
 Sistema de monitoramento do satélite EnviroSat-1 que simula telemetria de um satélite de observação ambiental, detecta anomalias via thresholds em Python e analisa o estado da missão em linguagem natural usando IA generativa (Ollama Cloud). Cada alerta traduz a anomalia técnica em impacto concreto para operadores, brigadas de incêndio e analistas ambientais.
@@ -28,13 +30,17 @@ Operador do Centro de Controle Ambiental (INPE / órgão estadual): precisa de d
 ## Como executar
 
 ```
-git clone https://github.com/usuario/mission-control-ai
+git clone https://github.com/davisimoncel0/mission-control-ai
 cd mission-control-ai
-python -m venv .venv
+python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
-# edite o arquivo .env e coloque sua chave Ollama
-python main.py
+cp .env.example .env
+
+# editar .env e inserir:
+# OLLAMA_API_KEY=sua_chave_aqui
+
+python3 main.py
 ```
 
 ## Comandos da CLI
@@ -80,5 +86,5 @@ Disponível em `prompts/system_prompt.md`. Instrui o modelo a sempre conectar di
 - Interface apenas via terminal
 
 ## Vídeo
-https://youtu.be/8F6csdti5gs
+[Assistir demonstração no YouTube](https://youtu.be/8F6csdti5gs)
 
